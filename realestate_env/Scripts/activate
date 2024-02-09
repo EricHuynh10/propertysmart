@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\ericc\OneDrive\General\Projects\Au_real_estate\au-realestate-EH-fork\au-realestate_EH_fork\realestate_env"
+VIRTUAL_ENV="C:\Users\ericc\OneDrive\General\Projects\propertysmart\realestate_env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

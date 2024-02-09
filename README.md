@@ -7,12 +7,6 @@ docker run --rm -d -p 4444:4444 --shm-size=2g selenium/standalone-chrome
 ```
 # How to run
 
-0. Crawl the data
-python crawl_realestate.py
-python crawl_suburb_profile.py
-python crawl_school.py
-
-
 To start
 1. Start the virtual environments
 - realestate_env\Scripts\activate
@@ -21,12 +15,16 @@ To start
 - docker start RePostgresContainer
 - Port to access this container on local machine is 5433
 
-2. Run backend
+2. Crawl data and import it to database
+- navigate to adhoc-scripts folder
+- run data_prep.py
+
+3. Run backend
 - Navigate to .\web\backend\
 - Run the following:
     uvicorn .\web\backend\main:app --reload
 
-3. Start frontend
+4. Start frontend
 - Run: npm start
 - To build: run npm build
 

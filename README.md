@@ -8,7 +8,9 @@ pip install -r requirements.txt
 
 To start
 1. Start the virtual environments
-- realestate_env\Scripts\activate
+```bash
+realestate_env\Scripts\activate
+```
 
 1. Start database on docker
 - docker start RePostgresContainer

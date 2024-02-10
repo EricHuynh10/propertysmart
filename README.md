@@ -2,9 +2,8 @@
 
 ```bash
 pip install -r requirements.txt
-docker run --rm -d -p 4444:4444 --shm-size=2g selenium/standalone-chrome
-
 ```
+
 # How to run
 
 To start

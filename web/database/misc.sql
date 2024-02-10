@@ -1,3 +1,29 @@
+-- Create a trigger to run the code when the suburbs table is updated
+CREATE OR REPLACE FUNCTION update_location_options()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Drop the location_options table
+    DROP TABLE IF EXISTS location_options;
+    
+    -- Recreate the location_options table
+    CREATE TABLE location_options AS
+    SELECT DISTINCT suburb, state, postcode
+    FROM suburbs
+    ORDER BY state, suburb;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_location_options_trigger
+AFTER INSERT OR UPDATE OR DELETE ON suburbs
+FOR EACH STATEMENT
+EXECUTE FUNCTION update_location_options();
+
+
+"""
+BELOW CODE IS FOR FUTURE USE
+
 DROP VIEW IF EXISTS less_than_five_br;
 DROP VIEW IF EXISTS five_plus_br;
 DROP VIEW IF EXISTS All_br;
@@ -163,26 +189,4 @@ SELECT * INTO suburb_summ from (
 )
 ORDER BY state, suburb, beds;
 
-
--- Create location options table
-DROP TABLE IF EXISTS location_options;
-CREATE TABLE location_options AS
-SELECT DISTINCT suburb, state, postcode
-FROM suburbs
-ORDER BY state, suburb;
-
--- select top 10 annual_growth_rate each state order by annual_growth_rate desc
-DROP TABLE IF EXISTS top10_segments;
-CREATE TABLE top10_segments AS
-SELECT * FROM (
-    SELECT 
-        *,
-        ROW_NUMBER() OVER (PARTITION BY state ORDER BY annual_growth_rate DESC) as rank
-    FROM 
-        suburb_summ
-    WHERE annual_growth_rate IS NOT NULL 
-        AND num_tranx > 10 AND num_tranx_five_years_ago > 10
-        AND beds <> 'All'
-) ranked
-WHERE rank <= 10;
-ALTER TABLE top10_segments DROP COLUMN rank;
+"""

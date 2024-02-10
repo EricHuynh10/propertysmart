@@ -18,27 +18,15 @@ def crawl_school():
     QLD_schools_with_score_df = schools_with_score_df[schools_with_score_df['postcode']==""]
 
     # Function to apply fuzzy matching
-    def get_best_match(row):
-        name = row['school_cleaned']
-        choices = schools_df[(schools_df['postcode'] == str(row['postcode'])) & (schools_df['educationLevel'] == row['educationLevel'])]['school_cleaned']
-        best_match = process.extractOne(name, choices, score_cutoff=80)
+    def get_best_match_suburb(row):
+        name = str(row['suburb'])
+        choices = au_postcodes_df[au_postcodes_df['state'] == row['state']]['suburb']
+        best_match = process.extractOne(name, choices)
         if not best_match:
             return None
         return best_match[0]  # Returns the best match name
     
-    def preprocess_school_names(name):
-    # Implement your preprocessing logic here
-    # For example, lowercasing, removing common suffixes/prefixes, etc.
-        name.lower()
-        name = name.replace('primary', '')
-        name = name.replace('secondary', '')
-        name = name.replace('school', '')
-        name = name.replace('college', '')
-        name = name.replace('public', '')
-        name = name.replace('private', '')
-        return name
-    
-    QLD_schools_with_score_df['bestmatchsuburb'] = QLD_schools_with_score_df.apply(get_best_match, axis=1)
+    QLD_schools_with_score_df['bestmatchsuburb'] = QLD_schools_with_score_df.apply(get_best_match_suburb, axis=1)
     QLD_schools_with_score_df.drop(columns=['postcode', 'suburb'], inplace=True)
     QLD_schools_with_score_df.rename(columns={'bestmatchsuburb': 'suburb'}, inplace=True)
 
@@ -51,11 +39,32 @@ def crawl_school():
     QLD_schools_with_score_df = QLD_schools_with_score_df[['school', 'suburb', 'state', 'postcode', 'score', 'school_type', 'educationLevel']]
     schools_with_score_df = pd.concat([schools_with_score_df[schools_with_score_df['state']!='QLD'], QLD_schools_with_score_df], ignore_index=True)
 
+    def preprocess_school_names(name):
+    # Implement your preprocessing logic here
+    # For example, lowercasing, removing common suffixes/prefixes, etc.
+        name.lower()
+        name = name.replace('primary', '')
+        name = name.replace('secondary', '')
+        name = name.replace('school', '')
+        name = name.replace('college', '')
+        name = name.replace('public', '')
+        name = name.replace('private', '')
+        return name
+
+    # Function to apply fuzzy matching
+    def get_best_match_school(row):
+        name = row['school_cleaned']
+        choices = schools_df[(schools_df['postcode'] == str(row['postcode'])) & (schools_df['educationLevel'] == row['educationLevel'])]['school_cleaned']
+        best_match = process.extractOne(name, choices, score_cutoff=80)
+        if not best_match:
+            return None
+        return best_match[0]  # Returns the best match name
+
     # Apply preprocessing
     schools_with_score_df['school_cleaned'] = schools_with_score_df['school'].apply(preprocess_school_names)
     schools_df['school_cleaned'] = schools_df['school'].apply(preprocess_school_names)
 
-    schools_with_score_df['BestMatchName'] = schools_with_score_df.apply(get_best_match, axis=1)
+    schools_with_score_df['BestMatchName'] = schools_with_score_df.apply(get_best_match_school, axis=1)
 
     # add a column calculating similarity between school_cleaned and BestMatchName
     schools_with_score_df['similarity'] = schools_with_score_df.apply(lambda row: fuzz.ratio(row['school_cleaned'], row['BestMatchName']), axis=1)
@@ -76,8 +85,9 @@ def crawl_school():
     final.rename(columns={'school_l': 'school', 'suburb_l': 'suburb', 'state_l': 'state', 'postcode_l': 'postcode', 'score_r': 'score', 'educationLevel_l': 'educationLevel'}, inplace=True)
 
     final.drop_duplicates(subset=['school', 'postcode', 'educationLevel'], keep='first', inplace=True)
-    #final.to_csv('D:\\aus_real_estate_data\schools\schools.csv', index=False)
-    final.to_csv('schools.csv', index=False)
+    final.to_csv('D:\\aus_real_estate_data\schools\schools.csv', index=False)
+    #final.to_csv('schools.csv', index=False)
+    print("Successfully crawled schools data")
 
 
 

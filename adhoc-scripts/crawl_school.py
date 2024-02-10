@@ -5,7 +5,7 @@ import json
 import os
 from io import StringIO
 from constants import au_postcodes_df
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
 from typing import Optional
 from fuzzywuzzy import process
 from fuzzywuzzy import fuzz
@@ -15,7 +15,7 @@ def crawl_school():
     schools_df.sort_values(by=['postcode'], inplace=True)
 
     schools_with_score_df = crawl_school_from_better_education()
-    QLD_schools_with_score_df = schools_with_score_df[schools_with_score_df['postcode']==""]
+    QLD_schools_with_score_df = schools_with_score_df[schools_with_score_df['postcode']==""].copy()
 
     # Function to apply fuzzy matching
     def get_best_match_suburb(row):
@@ -40,7 +40,6 @@ def crawl_school():
     schools_with_score_df = pd.concat([schools_with_score_df[schools_with_score_df['state']!='QLD'], QLD_schools_with_score_df], ignore_index=True)
 
     def preprocess_school_names(name):
-    # Implement your preprocessing logic here
     # For example, lowercasing, removing common suffixes/prefixes, etc.
         name.lower()
         name = name.replace('primary', '')
@@ -85,11 +84,9 @@ def crawl_school():
     final.rename(columns={'school_l': 'school', 'suburb_l': 'suburb', 'state_l': 'state', 'postcode_l': 'postcode', 'score_r': 'score', 'educationLevel_l': 'educationLevel'}, inplace=True)
 
     final.drop_duplicates(subset=['school', 'postcode', 'educationLevel'], keep='first', inplace=True)
-    final.to_csv('D:\\aus_real_estate_data\schools\schools.csv', index=False)
-    #final.to_csv('schools.csv', index=False)
+    #final.to_csv('D:\\aus_real_estate_data\schools\schools.csv', index=False)
+    final.to_csv('schools.csv', index=False)
     print("Successfully crawled schools data")
-
-
 
 
 def crawl_school_from_better_education():
@@ -162,6 +159,7 @@ def crawl_school_from_better_education():
                 print(f"Failed to retrieve the webpage: status code {response.status_code}")
 
     return schools_with_score_df
+
 
 def extract_school_from_suburb_profile():
     directory = os.path.join("D:\\aus_real_estate_data", 'suburb-profile')

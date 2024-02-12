@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from typing import Optional
 from fuzzywuzzy import process
 from fuzzywuzzy import fuzz
+from constants import data_folder
 
 def crawl_school():
     schools_df = extract_school_from_suburb_profile()
@@ -84,8 +85,11 @@ def crawl_school():
     final.rename(columns={'school_l': 'school', 'suburb_l': 'suburb', 'state_l': 'state', 'postcode_l': 'postcode', 'score_r': 'score', 'educationLevel_l': 'educationLevel'}, inplace=True)
 
     final.drop_duplicates(subset=['school', 'postcode', 'educationLevel'], keep='first', inplace=True)
-    #final.to_csv('D:\\aus_real_estate_data\schools\schools.csv', index=False)
-    final.to_csv('schools.csv', index=False)
+    
+    directory = os.path.join(data_folder, 'schools')
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    final.to_csv(os.path.join(directory, 'schools.csv'), index=False)
     print("Successfully crawled schools data")
 
 
@@ -162,9 +166,8 @@ def crawl_school_from_better_education():
 
 
 def extract_school_from_suburb_profile():
-    directory = os.path.join("D:\\aus_real_estate_data", 'suburb-profile')
+    directory = os.path.join(data_folder, 'suburb-profile')
     states = os.listdir(directory)
-    url = 'http://localhost:8000/schools' # backend url to post data
 
     schools_df = pd.DataFrame(columns=['school', 'suburb', 'state', 'postcode', 'schoolType', 'educationLevel', 'score'])
 

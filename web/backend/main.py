@@ -1,6 +1,6 @@
 from typing import List, Any, Union
 
-from geopy.geocoders import Nominatim
+# from geopy.geocoders import Nominatim
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,8 +10,8 @@ from sqlalchemy.orm import Session
 import crud, models, schemas
 from database import SessionLocal, engine
 from config import cors_allowed_origins_list
-from log import logger
-import tempfile
+# from log import logger
+# import tempfile
 from fastapi import Query
 
 
@@ -25,7 +25,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-geolocator = Nominatim(user_agent='au-realestate-review')
+# geolocator = Nominatim(user_agent='au-realestate-review')
 
 
 def get_db():

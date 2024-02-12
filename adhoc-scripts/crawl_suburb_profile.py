@@ -5,14 +5,13 @@ import json
 import concurrent.futures
 import datetime
 from bs4 import BeautifulSoup
+from constants import data_folder
 
 today = datetime.date.today().strftime("%Y-%m-%d")
 
 # function to crawl the data from domain.com.au
 def crawl_suburb_profile():
 
-    data_folder = "D:\\aus_real_estate_data"
-    #define the url
     url = "https://www.domain.com.au/suburb-profile/{suburb}-{state}-{postcode}"
 
     def download_suburb(suburb, state, postcode):

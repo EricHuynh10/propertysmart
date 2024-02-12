@@ -6,6 +6,7 @@ import pandas as pd
 import time
 import datetime
 from pydantic import BaseModel, ValidationError
+from constants import data_folder
 
 # import schemas from web/backend for data validation at migration
 import sys
@@ -16,7 +17,7 @@ from schemas import SchoolBase
 
 
 def migrate_schools():
-    file = "D:\\aus_real_estate_data\schools\schools.csv"
+    file = os.path.join(data_folder, "schools", "schools.csv") #local directory where the data is stored
     url = 'http://localhost:8000/schools' # backend url to post data
 
     with open(file) as f:

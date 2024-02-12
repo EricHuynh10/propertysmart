@@ -9,7 +9,7 @@ import pandas as pd
 #     states_df[state] = au_postcode_df.loc[au_postcode_df['state_code'] == state]
 
 # folder to store all the crawed data
-data_folder = "D:\\aus_real_estate_data\properties"
+data_folder = "D:\\aus_real_estate_data"
 
 # import the aus_postcode.csv file
 data_types = {

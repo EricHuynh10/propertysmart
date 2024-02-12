@@ -1,9 +1,8 @@
 import os
 
-
 db_config = {
     'type': os.getenv('DB_TYPE', 'postgresql'),
-    'host': os.getenv('DB_HOST', '127.0.0.1:5433'),
+    'host': os.getenv('DB_HOST', 'propertysmart-db:5432'),
     'user': os.getenv('DB_USER', 'admin'),
     'password': os.getenv('DB_PASSWORD', 'admin'),
     'schema': os.getenv('DB_SCHEMA', 'realestateDB'),

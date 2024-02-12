@@ -6,6 +6,7 @@ import pandas as pd
 import time
 import datetime
 from pydantic import BaseModel, ValidationError
+from constants import data_folder
 
 # import schemas from web/backend for data validation at migration
 import sys
@@ -16,9 +17,8 @@ from schemas import PropertyBase
 
 
 def migrate_property_data():
-    directory = "D:\\aus_real_estate_data\properties\sold-listings" #local directory where the data is stored
-    #states = os.listdir(directory)
-    states = ['VIC', 'WA'] # states to process
+    directory = os.path.join(data_folder, "properties", "sold-listings") #local directory where the data is stored
+    states = os.listdir(directory)
     url = 'http://localhost:8000/property' # backend url to post data
     
 

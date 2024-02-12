@@ -48,7 +48,8 @@ def crawl_realestate(listing_type, property_type):
             continue
 
         #create the folder to store the data
-        folder_name = os.path.join(data_folder, listing_type, state, "-".join([suburb, str(postcode)]), property_type)
+        folder_name = os.path.join(data_folder, "properties")
+        folder_name = os.path.join(folder_name, listing_type, state, "-".join([suburb, str(postcode)]), property_type)
         if not os.path.exists(folder_name):
             os.makedirs(folder_name)
         #if os path exists and contains the same number of pages, skip

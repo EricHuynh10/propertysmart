@@ -3,11 +3,12 @@ import json
 import pandas as pd
 import numpy as np
 import requests
+from constants import data_folder
 
 from suburb_remoteness import suburb_remoteness_df
 
 def migrate_suburb_profile():
-    directory = "D:\\aus_real_estate_data\\suburb-profile" # directory where suburb profile data is stored
+    directory = os.path.join(data_folder, "suburb-profile") # directory where suburb profile data is stored
     url = 'http://localhost:8000/suburb/' # url to post data to db
     states = os.listdir(directory)
 

@@ -1,33 +1,26 @@
-version: "3.8"
-services:
-  frontend:
-    image: nginx:latest
-    ports:
-      - 80:80
-    volumes:
-      - ./frontend:/usr/share/nginx/html
-    depends_on:
-      - backend
-  
-  backend:
-    build: path/to/backend
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
-  
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    ports:
-      - 5433:5432
+version: '3.8'
 
-  volumes:
-    db:
-    frontend:
-    backend:
+services:
+  propertysmart-db:
+    build: ./web/database
+    volumes:
+      - propertysmart-dbVolume:/var/lib/postgresql/data
+    networks:
+      - propertysmart-network
+
+  propertysmart-backend:
+    build: ./web/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - propertysmart-db
+    networks:
+      - propertysmart-network
+
+volumes:
+  propertysmart-dbVolume:
+
+networks:
+  propertysmart-network:
+    driver: bridge
+

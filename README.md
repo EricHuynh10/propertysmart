@@ -1,4 +1,4 @@
-# How to run
+# How to run in local machine
 1. Start a new virtual environments and run
 ```cmd
 pip install -r requirements.txt

@@ -16,5 +16,5 @@ COPY . .
 # Make port 3000 available outside the container
 EXPOSE 3000
 
-# Run the application when the container launches
-CMD ["npm", "build"]
+# Build the application when the container launches
+CMD [ "npm", "start" ]

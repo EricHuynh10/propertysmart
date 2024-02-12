@@ -17,10 +17,19 @@ services:
     networks:
       - propertysmart-network
 
+  propertysmart-frontend:
+    build: ./web/frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - propertysmart-backend
+    networks:
+      - propertysmart-network
+    
+
 volumes:
   propertysmart-dbVolume:
 
 networks:
   propertysmart-network:
     driver: bridge
-

@@ -1,12 +1,7 @@
-# How to install
+# How to run
+1. Start a new virtual environments and run
 ```cmd
 pip install -r requirements.txt
-```
-
-# How to run
-1. Start the virtual environments
-```cmd
-propertysmart_backend_env\Scripts\activate
 ```
 
 

@@ -76,10 +76,14 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_03A86E584E0C4660973EA4F38703DD02 }}
 
-      - name: Start the uviorn server
+      - name: Activate virtual environment and install uvicorn
         run: |
-          source venv/bin/activate
-          pwd
-          ls
-          pip show uvicorn
+          source venv/bin/activate  
+          python -m pip install --upgrade pip
+          pip install uvicorn
+
+      - name: Start the uvicorn server
+        run: |
           uvicorn main:app --host 0.0.0.0 --port 8000
+        working-directory: web/backend
+  

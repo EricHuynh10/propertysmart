@@ -23,7 +23,9 @@ jobs:
 
       - name: Setup .env File
         run: |
-          echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > ${{ github.workspace }}/web/frontend/.env
+          echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" > ${{ github.workspace }}/web/frontend/.env
+        env:
+          REACT_APP_BACKEND_URL: 'https://propertysmart-backend.azurewebsites.net/' # Set your backend URL here
           
       - name: Build And Deploy
         id: builddeploy

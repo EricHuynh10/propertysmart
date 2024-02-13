@@ -24,11 +24,11 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          apt-get update && apt-get install -y \
+          sudo apt-get update && sudo apt-get install -y \
             libpq-dev \
             gcc \
             wget \
-            && rm -rf /var/lib/apt/lists/*
+            && sudo rm -rf /var/lib/apt/lists/*
 
       - name: Create and start virtual environment
         run: |

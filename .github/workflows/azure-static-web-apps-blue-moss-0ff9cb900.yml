@@ -24,7 +24,6 @@ jobs:
       - name: Setup .env File
         run: |
           echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > ${{ github.workspace }}/web/frontend/.env
-          echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}"
           
       - name: Build And Deploy
         id: builddeploy

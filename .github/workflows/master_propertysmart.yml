@@ -80,10 +80,13 @@ jobs:
         run: |
           source venv/bin/activate  
           python -m pip install --upgrade pip
+          pip show uvicorn
           pip install uvicorn
+          pip show uvicorn
 
       - name: Start the uvicorn server
         run: |
+          source ../../venv/bin/activate
           uvicorn main:app --host 0.0.0.0 --port 8000
         working-directory: web/backend
   

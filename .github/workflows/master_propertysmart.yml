@@ -22,13 +22,23 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Install build dependencies
+        run: |
+          apt-get update && apt-get install -y \
+            libpq-dev \
+            gcc \
+            wget \
+            && rm -rf /var/lib/apt/lists/*
+
       - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          cd backend
+          pip install --no-cache-dir -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -59,7 +69,6 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
@@ -67,3 +76,7 @@ jobs:
           app-name: 'propertysmart'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_03A86E584E0C4660973EA4F38703DD02 }}
+
+      - name: start the uvicorn server
+        run: |
+          uvicorn main:app --reload --host 0.0.0.0 --port 8000

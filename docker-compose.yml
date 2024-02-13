@@ -25,7 +25,6 @@ services:
       - propertysmart-backend
     networks:
       - propertysmart-network
-    
 
 volumes:
   propertysmart-dbVolume:

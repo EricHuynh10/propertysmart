@@ -22,24 +22,6 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install build dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y \
-            libpq-dev \
-            gcc \
-            wget \
-            && sudo rm -rf /var/lib/apt/lists/*
-
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-
-      - name: Install dependencies
-        run: |
-          cd ${{ github.workspace }}/web/backend
-          pip install --no-cache-dir -r requirements.txt
-
       - name: Zip artifact for deployment
         run: |
           cd web/backend

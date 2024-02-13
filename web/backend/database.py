@@ -6,11 +6,12 @@ from config import db_config
 from sqlalchemy import text
 
 
-SQLALCHEMY_DATABASE_URL = '{type}://{user}:{password}@{host}/{schema}'.format(
+SQLALCHEMY_DATABASE_URL = '{type}://{user}:{password}@{host}:{port}/{schema}'.format(
     type=db_config['type'],
     user=db_config['user'],
     password=db_config['password'],
     host=db_config['host'],
+    port=db_config['port'],
     schema=db_config['schema'],
 )
 

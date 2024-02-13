@@ -30,4 +30,4 @@ COPY . .
 EXPOSE 8000
 
 # Start the application using Uvicorn with Dockerize to wait for the database
-CMD ["dockerize", "-wait", "tcp://propertysmart-db:5432", "-timeout", "300s", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

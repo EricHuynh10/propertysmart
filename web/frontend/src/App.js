@@ -34,7 +34,7 @@ function App() {
 
   const fetchLocationOptions = async (inputValue) => {
     try {
-      let url = `http://propertysmart-backend:8000/location-options`;
+      let url = `${process.env.REACT_APP_BACKEND_URL}/location-options`;
       if (inputValue && inputValue !== '') {
         url += `?search=${inputValue}`;
       }
@@ -57,7 +57,7 @@ function App() {
 
   const fetchTop10 = async () => {
     try {
-      const response = await axios.get(`http://propertysmart-backend:8000/top10?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}&page=${currentPage}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/top10?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}&page=${currentPage}`);
       setTop10(response.data);
     } catch (error) {
       console.error('Error fetching top 10: ', error);
@@ -66,7 +66,7 @@ function App() {
 
   const fetchTotalRecords = async () => {
     try {
-      const response = await axios.get(`http://propertysmart-backend:8000/total-records?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/total-records?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}`);
       setTotalRecords(response.data.totalRecords);
     } catch (error) {
       console.error('Error fetching total records: ', error);
@@ -105,7 +105,7 @@ function App() {
       setSubmitOption(selectedOption);
       const selectedOptionString = selectedOption.value.suburb + '-' + selectedOption.value.state + '-' + selectedOption.value.postcode;
       const selectedOptionStringFormatted = selectedOptionString.replace(/\s+/g, '-').toLowerCase();
-      const response = await axios.get(`http://propertysmart-backend:8000/suburb/${selectedOptionStringFormatted}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/suburb/${selectedOptionStringFormatted}`);
       setResult(response.data);
     } catch (error) {
       console.error('Error fetching data: ', error);

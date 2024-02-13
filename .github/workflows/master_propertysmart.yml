@@ -37,7 +37,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cd ${{ github.workspace }}/backend
+          cd ${{ github.workspace }}/web/backend
           pip install --no-cache-dir -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)

@@ -14,7 +14,6 @@ from config import cors_allowed_origins_list
 # import tempfile
 from fastapi import Query
 
-
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 

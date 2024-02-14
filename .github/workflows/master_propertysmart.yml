@@ -27,6 +27,7 @@ jobs:
           npm run test --if-present
         env:
           REACT_APP_BACKEND_URL: 'https://propertysmart-backend.azurewebsites.net' # Set your backend URL here
+          CI: false
 
       - name: Zip artifact for deployment
         run: |

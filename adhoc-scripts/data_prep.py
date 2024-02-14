@@ -18,5 +18,5 @@ if __name__ == "__main__":
 
     # migrate_property_data() 
     migrate_schools()
-    migrate_suburb_profile()
+    # migrate_suburb_profile()
 

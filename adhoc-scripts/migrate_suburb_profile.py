@@ -3,13 +3,13 @@ import json
 import pandas as pd
 import numpy as np
 import requests
-from constants import data_folder
+from constants import data_folder, backend_url
 
 from suburb_remoteness import suburb_remoteness_df
 
 def migrate_suburb_profile():
     directory = os.path.join(data_folder, "suburb-profile") # directory where suburb profile data is stored
-    url = 'http://localhost:8000/suburb/' # url to post data to db
+    url = f'{backend_url}/suburb/' # url to post data to db
     states = os.listdir(directory)
 
     suburb_data_df = pd.DataFrame()

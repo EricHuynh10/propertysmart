@@ -11,6 +11,6 @@ db_config = {
 
 cors_allowed_origins = os.getenv(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost;http://localhost:8081;http://localhost:3000;http://propertysmart-frontend'
+    'http://localhost;http://localhost:8081;http://localhost:3000;https://blue-moss-0ff9cb900.4.azurestaticapps.net'
 )
 cors_allowed_origins_list = cors_allowed_origins.split(';')

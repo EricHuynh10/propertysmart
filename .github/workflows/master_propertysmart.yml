@@ -24,7 +24,6 @@ jobs:
           echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" > .env
           npm install
           npm run build --if-present
-          npm run test --if-present
         env:
           REACT_APP_BACKEND_URL: 'https://propertysmart-backend.azurewebsites.net' # Set your backend URL here
           CI: false

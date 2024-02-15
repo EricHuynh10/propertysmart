@@ -13,10 +13,10 @@ if __name__ == "__main__":
     """
 
     # crawl_realestate()
-    #crawl_school()
-    #crawl_suburb_profile()
+    crawl_school()
+    crawl_suburb_profile()
 
     # migrate_property_data() 
     migrate_schools()
-    # migrate_suburb_profile()
+    migrate_suburb_profile()
 

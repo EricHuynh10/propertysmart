@@ -1,3 +1,6 @@
+# Live Site
+Check out the live site [here](https://calm-stone-0fb97a700.4.azurestaticapps.net/).
+
 # How to run in local machine
 1. Start a new virtual environments and run
 ```cmd

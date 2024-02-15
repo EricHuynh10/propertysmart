@@ -57,7 +57,9 @@ function App() {
 
   const fetchTop10 = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/top10?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}&page=${currentPage}`);
+      let url = `${process.env.REACT_APP_BACKEND_URL}/top10?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}&page=${currentPage}`;
+      console.log(url);
+      const response = await axios.get(url);
       setTop10(response.data);
     } catch (error) {
       console.error('Error fetching top 10: ', error);
@@ -66,7 +68,9 @@ function App() {
 
   const fetchTotalRecords = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/total-records?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}`);
+      let url = `${process.env.REACT_APP_BACKEND_URL}/total-records?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}`;
+      console.log(url);
+      const response = await axios.get(url);
       setTotalRecords(response.data.totalRecords);
     } catch (error) {
       console.error('Error fetching total records: ', error);

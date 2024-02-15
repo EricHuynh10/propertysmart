@@ -3,6 +3,7 @@ from typing import List, Any, Union
 # from geopy.geocoders import Nominatim
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 import requests
 from sqlalchemy.orm import Session
@@ -18,14 +19,17 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 app.add_middleware(
+     TrustedHostMiddleware, 
+     allowed_hosts=["propertysmartbackend.azurewebsites.net", "localhost", "127.0.0.1"]
+)
+
+app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_allowed_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# geolocator = Nominatim(user_agent='au-realestate-review')
-
 
 def get_db():
     db = SessionLocal()
@@ -74,7 +78,7 @@ async def get_location_options(search: str = Query('default', description='Searc
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get('/top10/', response_model=List[schemas.Suburb])
+@app.get('/top10', response_model=List[schemas.Suburb])
 async def get_top10(state: str = Query('all', description='state'),
                     sortBy: str = Query('rentalYield', description='sort_by'),
                     propertyType: str = Query('all', description='property_type'),
@@ -88,7 +92,7 @@ async def get_top10(state: str = Query('all', description='state'),
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get('/total-records/', response_model=schemas.TotalRecords)
+@app.get('/total-records', response_model=schemas.TotalRecords)
 async def get_total_records(state: str = Query('all', description='state'),
                             sortBy: str = Query('rentalYield', description='sort_by'),
                             propertyType: str = Query('all', description='property_type'),
@@ -107,7 +111,6 @@ def get_property_id(id: int, db: Session = Depends(get_db)):
         property = crud.get_property(db, int(id))
         return property
     except Exception as e:
-        #logger.error(str(e), exc_info=True)
         return {}
  
 

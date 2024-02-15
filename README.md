@@ -1,5 +1,5 @@
 # Live Site
-Check out the live site [here](https://calm-stone-0fb97a700.4.azurestaticapps.net/).
+Check out the live site [here](https://calm-stone-0fb97a700.4.azurestaticapps.net/){:target="_blank"}.
 
 # How to run in local machine
 1. Start a new virtual environments and run

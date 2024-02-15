@@ -123,7 +123,7 @@ function App() {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', height: '100vh', flexDirection: 'column', textAlign: 'center' }}>
-      <h1>Real Estate Review</h1>
+      <h1>Property Smart</h1>
       <div style={{ width: '60%' }}>
         <form onSubmit={handleSubmit} style={{ display: 'flex', width: '100%', textAlign: 'left' }}>
           <Select

@@ -37,10 +37,13 @@ jobs:
         with:
           node-version: '14'
       
-      - name: Install dependencies and build
+      - name: Install dependencies
         run: |
-          cd ./web/frontend
           npm ci
+
+      - name: Build
+        run: |
+          cd web/frontend
           npm run build
         env:
           CI: false

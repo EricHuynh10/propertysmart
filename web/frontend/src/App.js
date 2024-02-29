@@ -122,95 +122,97 @@ function App() {
 
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', height: '100vh', flexDirection: 'column', textAlign: 'center' }}>
-      <h1>Property Smart</h1>
-      <div style={{ width: '60%' }}>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', width: '100%', textAlign: 'left' }}>
+    <div class="container">
+      <div class="header">
+        <h1>&#127968; Property Smart</h1>
+        <form onSubmit={handleSubmit} class="search">
           <Select
+            className='search-bar'
             name="suburb"
             inputValue={inputValue}
             onInputChange={handleInputChange}
             onChange={handleChange}
             options={locationOptions}
             placeholder="Enter a suburb, state, postcode"
-            styles={{ container: (base) => ({ ...base, flex: 1 }) }}  // Make Select flex in size
           />
-          <button type="submit" style={{ marginLeft: '0.5rem' }}>Search</button>
+          <button type="submit" class="search-button">Search</button>
         </form>
-
+      </div>
+      
+      <div class="main">
         {submitOption && (
-        <h2 style={{ textAlign: 'left', fontWeight: 'bold' }}>
+        <h2>
           {submitOption.value.suburb.toUpperCase()}, {submitOption.value.state.toUpperCase()}, {submitOption.value.postcode}
         </h2>
         )}
 
         {result && result.properties && (
-          <div style={{ width: '82%' }}>
-            <table className="table">
-              <caption style={{ textAlign: 'left', fontWeight: 'bold', marginBottom: '0.2rem' }}>
-                Median Price and Yield
-              </caption>
-              <thead>
-              <tr>
-                <th style={{ width: '8%' }}>House Type</th>
-                <th style={{ width: '3%' }}>Beds</th>
-                <th style={{ width: '10%' }}>Median Price ($)</th>
-                <th style={{ width: '10%' }}>Annual Growth (%)</th>
-                <th style={{ width: '8%' }}>Last 12M Sold</th>
-                <th style={{ width: '9%' }}>Rental Yield (%)</th>
-                <th style={{ width: '8%' }}>Total Yield (%)</th>
-              </tr>
-              </thead>
-              <tbody>
-                {result.properties.map((item, index) => (
-                  <tr key={index}>
-                      <td style={{ width: '8%' }}>{item.propertyType}</td>
-                      <td style={{ width: '3%' }}>{item.beds}</td>
-                      <td style={{ width: '10%' }}>{item.medianPrice ? item.medianPrice.toLocaleString() : '-'}</td>
-                      <td style={{ width: '10%' }}>{item.annualGrowth ? `${(item.annualGrowth * 100).toFixed(1)}%` : '-'}</td>
-                      <td style={{ width: '8%' }}>{item.soldThisYear ? item.soldThisYear.toLocaleString() : '-'}</td>
-                      <td style={{ width: '9%' }}>{item.rentalYield ? `${(item.rentalYield * 100).toFixed(1)}%` : '-'}</td>
-                      <td style={{ width: '8%' }}>{item.totalYield ? `${(item.totalYield * 100).toFixed(1)}%` : '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div class="table-container suburb-info">
+          <table className="table">
+            <caption>
+              Median Price and Yield
+            </caption>
+            <thead>
+            <tr>
+              <th style={{ width: '8%' }}>House Type</th>
+              <th style={{ width: '3%' }}>Beds</th>
+              <th style={{ width: '10%' }}>Median Price ($)</th>
+              <th style={{ width: '10%' }}>Annual Growth (%)</th>
+              <th style={{ width: '8%' }}>Last 12M Sold</th>
+              <th style={{ width: '9%' }}>Rental Yield (%)</th>
+              <th style={{ width: '8%' }}>Total Yield (%)</th>
+            </tr>
+            </thead>
+            <tbody>
+              {result.properties.map((item, index) => (
+                <tr key={index}>
+                    <td style={{ width: '8%' }}>{item.propertyType}</td>
+                    <td style={{ width: '3%' }}>{item.beds}</td>
+                    <td style={{ width: '10%' }}>{item.medianPrice ? item.medianPrice.toLocaleString() : '-'}</td>
+                    <td style={{ width: '10%' }}>{item.annualGrowth ? `${(item.annualGrowth * 100).toFixed(1)}%` : '-'}</td>
+                    <td style={{ width: '8%' }}>{item.soldThisYear ? item.soldThisYear.toLocaleString() : '-'}</td>
+                    <td style={{ width: '9%' }}>{item.rentalYield ? `${(item.rentalYield * 100).toFixed(1)}%` : '-'}</td>
+                    <td style={{ width: '8%' }}>{item.totalYield ? `${(item.totalYield * 100).toFixed(1)}%` : '-'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         )}
 
         {result && result.schools && (
-          <div style={{ width: '82%' }}>
-            <table className='table'>
-              <caption style={{ textAlign: 'left', fontWeight: 'bold', marginBottom: '0.2rem', marginTop: '1rem' }}>
-                Nearby Schools
-              </caption>
-              <thead>
-                <tr>
-                  <th style={{ width: '15%' }}>School</th>
-                  <th style={{ width: '5%' }}>School Type</th>
-                  <th style={{ width: '5%' }}>Education Level</th>
-                  <th style={{ width: '5%' }}>Score</th>
+        <div class="table-container suburb-info">
+          <table className='table'>
+            <caption>
+              Nearby Schools
+            </caption>
+            <thead>
+              <tr>
+                <th style={{ width: '15%' }}>School</th>
+                <th style={{ width: '5%' }}>School Type</th>
+                <th style={{ width: '5%' }}>Education Level</th>
+                <th style={{ width: '5%' }}>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.schools.map((school, index) => (
+                <tr key={index}>
+                  <td style={{ width: '15%', textAlign: 'left' }}>{school.school}</td>
+                  <td style={{ width: '5%' }}>{school.schoolType}</td>
+                  <td style={{ width: '5%' }}>{school.educationLevel}</td>
+                  <td style={{ width: '5%' }}>{school.score ? school.score : '-'}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {result.schools.map((school, index) => (
-                  <tr key={index}>
-                    <td style={{ width: '15%', textAlign: 'left' }}>{school.school}</td>
-                    <td style={{ width: '5%' }}>{school.schoolType}</td>
-                    <td style={{ width: '5%' }}>{school.educationLevel}</td>
-                    <td style={{ width: '5%' }}>{school.score ? school.score : '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
         )}
 
-        <h2 style={{ textAlign: 'left', fontWeight: 'bold' }}>Top 10 Investments by Yield</h2>
+        <h2>Top 10 Investments by Yield</h2>
         {top10 && (
-        <div>
-          <div style={{ textAlign: 'left', marginBottom: '1rem' }}>
-            <label>Filter by: </label>
+        <div class="top-investments">
+          <div class="filters-container">
+            <label>Filter by:</label>
             <select onChange={handleStateChange}>
               <option value="all">All States</option>
               <option value="act">ACT</option>
@@ -241,44 +243,49 @@ function App() {
               <option value="all">All Regions</option>
             </select>
           </div>
-          <table className="table">
-            <thead>
-            <tr>
-              <th style={{ width: '10%' }}>Suburb</th>
-              <th style={{ width: '3%' }}>State</th>
-              <th style={{ width: '5%' }}>Postcode</th>
-              <th style={{ width: '8%' }}>House Type</th>
-              <th style={{ width: '3%' }}>Beds</th>
-              <th style={{ width: '10%' }}>Median Price ($)</th>
-              <th style={{ width: '10%' }}>Annual Growth (%)</th>
-              <th style={{ width: '8%' }}>Last 12M Sold</th>
-              <th style={{ width: '9%' }}>Rental Yield (%)</th>
-              <th style={{ width: '8%' }}>Total Yield (%)</th>
-            </tr>
-            </thead>
-            <tbody>
-              {top10.map((item, index) => (
-                <tr key={index}>
-                  <td style={{ width: '10%', textAlign: 'left' }}>{item.suburb}</td>
-                  <td style={{ width: '3%' }}>{item.state}</td>
-                  <td style={{ width: '5%' }}>{item.postcode}</td>
-                  <td style={{ width: '8%' }}>{item.propertyType}</td>
-                  <td style={{ width: '3%' }}>{item.beds}</td>
-                  <td style={{ width: '10%' }}>{item.medianPrice ? item.medianPrice.toLocaleString() : '-'}</td>
-                  <td style={{ width: '10%' }}>{item.annualGrowth ? `${(item.annualGrowth * 100).toFixed(1)}%` : '-'}</td>
-                  <td style={{ width: '8%' }}>{item.soldThisYear ? item.soldThisYear.toLocaleString() : '-'}</td>
-                  <td style={{ width: '9%' }}>{item.rentalYield ? `${(item.rentalYield * 100).toFixed(1)}%` : '-'}</td>
-                  <td style={{ width: '8%' }}>{item.totalYield ? `${(item.totalYield * 100).toFixed(1)}%` : '-'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div class="table-container">
+            <table className="table">
+              <thead>
+              <tr>
+                <th style={{ width: '10%' }}>Suburb</th>
+                <th style={{ width: '3%' }}>State</th>
+                <th style={{ width: '5%' }}>Postcode</th>
+                <th style={{ width: '8%' }}>House Type</th>
+                <th style={{ width: '3%' }}>Beds</th>
+                <th style={{ width: '10%' }}>Median Price ($)</th>
+                <th style={{ width: '10%' }}>Annual Growth (%)</th>
+                <th style={{ width: '8%' }}>Last 12M Sold</th>
+                <th style={{ width: '9%' }}>Rental Yield (%)</th>
+                <th style={{ width: '8%' }}>Total Yield (%)</th>
+              </tr>
+              </thead>
+              <tbody>
+                {top10.map((item, index) => (
+                  <tr key={index}>
+                    <td style={{ width: '10%', textAlign: 'left' }}>{item.suburb}</td>
+                    <td style={{ width: '3%' }}>{item.state}</td>
+                    <td style={{ width: '5%' }}>{item.postcode}</td>
+                    <td style={{ width: '8%' }}>{item.propertyType}</td>
+                    <td style={{ width: '3%' }}>{item.beds}</td>
+                    <td style={{ width: '10%' }}>{item.medianPrice ? item.medianPrice.toLocaleString() : '-'}</td>
+                    <td style={{ width: '10%' }}>{item.annualGrowth ? `${(item.annualGrowth * 100).toFixed(1)}%` : '-'}</td>
+                    <td style={{ width: '8%' }}>{item.soldThisYear ? item.soldThisYear.toLocaleString() : '-'}</td>
+                    <td style={{ width: '9%' }}>{item.rentalYield ? `${(item.rentalYield * 100).toFixed(1)}%` : '-'}</td>
+                    <td style={{ width: '8%' }}>{item.totalYield ? `${(item.totalYield * 100).toFixed(1)}%` : '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         )}
       </div>
       <Pagination totalRecords={totalRecords} 
                   onPageChange={onPageChange}
                   currentPage={currentPage} />
+      <div class="footer">
+        
+      </div>
     </div>
   )
 };

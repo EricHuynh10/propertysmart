@@ -1,19 +1,23 @@
-import React, { useState  } from 'react';
-// import Pagination from './Pagination';
+import React from 'react';
 import AppStyles from './App.module.css';
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import TopSuburbsByYield from './components/TopSuburbsByYield';
+import Main from './pages/Main';
+import SearchResult from './pages/SearchResult';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 
 function App() {
-  const [result, setResult] = useState(null);
-
   return (
     <div className={AppStyles.App}>
-      <Header />
-      <SearchBar setResult={setResult} />
-      <TopSuburbsByYield />
+      <Router>
+        <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="*" element={<Main />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/suburb/:suburb" element={<SearchResult />} />
+          </Routes>
+      </Router>
     </div>
+
+    
     // <div className="App">
 
       

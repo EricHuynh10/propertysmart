@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import TopSuburbsFilter from "./TopSuburbsFilter";
 import TopSuburbsTable from "./TopSuburbsTable";
 
@@ -12,6 +12,8 @@ const TopSuburbsByYield = () => {
   const [remoteness, setRemotenessValue] = useState('0');
   const [totalRecords, setTotalRecords] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const fetchTop10 = async () => {
     try {
@@ -45,7 +47,13 @@ const TopSuburbsByYield = () => {
 
   return (
     <Box sx={{ flexDirection: 'column', marginTop : '1rem'}}>
-      <Typography variant="h2" sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+      <Typography 
+        variant="h2" 
+        sx={{ 
+          fontSize: isMobile? '1.2rem' : '1.5rem', 
+          fontWeight: 'bold' 
+        }}
+      >
         Top Suburbs By Yield
       </Typography>
       <TopSuburbsFilter 

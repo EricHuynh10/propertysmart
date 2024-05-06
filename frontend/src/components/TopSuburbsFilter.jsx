@@ -62,22 +62,22 @@ const TopSuburbsFilter = ({ setStateValue, setYieldValue, setPropertyTypeValue, 
         gap: '0.2rem'
       }}
     >
-      <select onChange={handleStateChange}>
+      <select onChange={handleStateChange} style={{ border: '1px solid lightgrey', borderRadius: '3px' }}>
         {Object.entries(states).map(([key, state]) => (
           <option key={key} value={key}>{state}</option>
         ))}
       </select>
-      <select onChange={yieldTypeChange}>
+      <select onChange={yieldTypeChange} style={{ border: '1px solid lightgrey', borderRadius: '3px' }}>
         {Object.entries(yieldTypes).map(([key, type]) => (
           <option key={key} value={key}>{type}</option>
         ))}
       </select>
-      <select onChange={handlePropertyTypeChange}>
+      <select onChange={handlePropertyTypeChange} style={{ border: '1px solid lightgrey', borderRadius: '3px' }}>
         {Object.entries(propertyTypes).map(([key, type]) => (
           <option key={key} value={key}>{type}</option>
         ))}
       </select>
-      <select onChange={handleRemotenessChange}>
+      <select onChange={handleRemotenessChange} style={{ border: '1px solid lightgrey', borderRadius: '3px' }}>
         {Object.entries(remotenessTypes).map(([key, type]) => (
           <option key={key} value={key}>{type}</option>
         ))}

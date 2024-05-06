@@ -4,7 +4,7 @@ import './App.css';
 const Pagination = ({ currentPage, totalRecords, onPageChange }) => {
   const recordsPerPage = 10;
   const pageLimit = 5;
-    const totalPages = totalRecords === 0 ? 1 : Math.ceil(totalRecords / recordsPerPage);
+  const totalPages = totalRecords === 0 ? 1 : Math.ceil(totalRecords / recordsPerPage);
 
   const getPaginationGroup = () => {
     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;

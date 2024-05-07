@@ -1,97 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppStyles from './App.module.css';
 import Main from './pages/Main';
 import SearchResult from './pages/SearchResult';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
+import { Context } from './Context';
+import { Box } from '@mui/material';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResult, setSearchResult] = useState('');
+
+  const contextValue = { 
+    searchQuery,
+    setSearchQuery,
+    searchResult,
+    setSearchResult,
+  };
+
   return (
-    <div className={AppStyles.App}>
-      <Router>
-        <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="*" element={<Main />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/suburb/:suburb" element={<SearchResult />} />
-          </Routes>
-      </Router>
-    </div>
-
-    
-    // <div className="App">
-
-      
-    //   <div class="main">
-    //     {submitOption && (
-    //     <h2>
-    //       {submitOption.value.suburb.toUpperCase()}, {submitOption.value.state.toUpperCase()}, {submitOption.value.postcode}
-    //     </h2>
-    //     )}
-
-    //     {result && result.properties && (
-    //     <div class="table-container suburb-info">
-    //       <table className="table">
-    //         <caption>
-    //           Median Price and Yield
-    //         </caption>
-    //         <thead>
-    //         <tr>
-    //           <th style={{ width: '8%' }}>House Type</th>
-    //           <th style={{ width: '3%' }}>Beds</th>
-    //           <th style={{ width: '10%' }}>Median Price ($)</th>
-    //           <th style={{ width: '10%' }}>Annual Growth (%)</th>
-    //           <th style={{ width: '8%' }}>Last 12M Sold</th>
-    //           <th style={{ width: '9%' }}>Rental Yield (%)</th>
-    //           <th style={{ width: '8%' }}>Total Yield (%)</th>
-    //         </tr>
-    //         </thead>
-    //         <tbody>
-    //           {result.properties.map((item, index) => (
-    //             <tr key={index}>
-    //                 <td style={{ width: '8%' }}>{item.propertyType}</td>
-    //                 <td style={{ width: '3%' }}>{item.beds}</td>
-    //                 <td style={{ width: '10%' }}>{item.medianPrice ? item.medianPrice.toLocaleString() : '-'}</td>
-    //                 <td style={{ width: '10%' }}>{item.annualGrowth ? `${(item.annualGrowth * 100).toFixed(1)}%` : '-'}</td>
-    //                 <td style={{ width: '8%' }}>{item.soldThisYear ? item.soldThisYear.toLocaleString() : '-'}</td>
-    //                 <td style={{ width: '9%' }}>{item.rentalYield ? `${(item.rentalYield * 100).toFixed(1)}%` : '-'}</td>
-    //                 <td style={{ width: '8%' }}>{item.totalYield ? `${(item.totalYield * 100).toFixed(1)}%` : '-'}</td>
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-    //     </div>
-    //     )}
-
-    //     {result && result.schools && (
-    //     <div class="table-container suburb-info">
-    //       <table className='table'>
-    //         <caption>
-    //           Nearby Schools
-    //         </caption>
-    //         <thead>
-    //           <tr>
-    //             <th style={{ width: '15%' }}>School</th>
-    //             <th style={{ width: '5%' }}>School Type</th>
-    //             <th style={{ width: '5%' }}>Education Level</th>
-    //             <th style={{ width: '5%' }}>Score</th>
-    //           </tr>
-    //         </thead>
-    //         <tbody>
-    //           {result.schools.map((school, index) => (
-    //             <tr key={index}>
-    //               <td style={{ width: '15%', textAlign: 'left' }}>{school.school}</td>
-    //               <td style={{ width: '5%' }}>{school.schoolType}</td>
-    //               <td style={{ width: '5%' }}>{school.educationLevel}</td>
-    //               <td style={{ width: '5%' }}>{school.score ? school.score : '-'}</td>
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-    //     </div>
-    //     )}
-
-    //     
-    // </div>
+    <Box className={AppStyles.App}>
+      <Context.Provider value={contextValue}>
+        <Router>
+          <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="*" element={<Main />} />
+              <Route path="/main" element={<Main />} />
+              <Route path="/suburb/:suburb" element={<SearchResult />} />
+            </Routes>
+        </Router>
+      </Context.Provider>
+    </Box>
   )
 };
 

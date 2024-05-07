@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
-import TopSuburbsByYield from "../components/TopSuburbsByYield";
+import Header from "../components/Main/Header";
+import SearchBar from "../components/Main/SearchBar";
+import TopSuburbsByYield from "../components/Main/TopSuburbsByYield";
 import { Box } from "@mui/material";
 
 const Main = () => {
-  const [result, setResult] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   return (
     <Box 
       id='main'
@@ -28,7 +28,7 @@ const Main = () => {
         }}
       >
         <Header />
-        <SearchBar setResult={setResult} />
+        <SearchBar />
       </Box>
       <Box 
         sx={{

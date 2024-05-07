@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import { Box, Button, useTheme, useMediaQuery } from '@mui/material';
@@ -6,14 +6,15 @@ import SearchStyles from './SearchBar.module.css'
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import { grey } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../Context';
 
 const SearchBar = ({ setResult }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [inputValue, setInputValue] = useState('');
   const [locationOptions, setLocationOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
+  const { searchQuery, setSearchQuery } = useContext(Context);
 
   const fetchLocationOptions = async (inputValue) => {
     try {
@@ -48,23 +49,11 @@ const SearchBar = ({ setResult }) => {
   };
 
   const handleChange = async (option) => {
-    setSelectedOption(option);
+    setSearchQuery(option);
     try {
       const selectedOptionString = option.value.suburb + '-' + option.value.state + '-' + option.value.postcode;
       const selectedOptionStringFormatted = selectedOptionString.replace(/\s+/g, '-').toLowerCase();
       navigate(`/suburb/${selectedOptionStringFormatted}`);
-    } catch (error) {
-      console.error('Error fetching data: ', error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const selectedOptionString = selectedOption.value.suburb + '-' + selectedOption.value.state + '-' + selectedOption.value.postcode;
-      const selectedOptionStringFormatted = selectedOptionString.replace(/\s+/g, '-').toLowerCase();
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/suburb/${selectedOptionStringFormatted}`);
-      setResult(response.data);
     } catch (error) {
       console.error('Error fetching data: ', error);
     }
@@ -80,6 +69,7 @@ const SearchBar = ({ setResult }) => {
         onInputChange={handleInputChange}
         onChange={handleChange}
         options={locationOptions}
+        value={searchQuery}
         placeholder="Enter a suburb, state, postcode"
       />
       {/* <Button variant="contained" 

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import homeImage from '../assets/home.png';
+import homeImage from '../../assets/home.png';
+import { useNavigate } from 'react-router-dom';
+import { Context } from '../../Context';
 
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
+  const { setSearchQuery } = useContext(Context);
   return (
     <Box component='header' 
       sx={{
@@ -13,6 +17,11 @@ const Header = () => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        cursor: 'pointer',
+      }}
+      onClick={() => {
+        setSearchQuery(null);
+        navigate('/')
       }}
     >
       <img 

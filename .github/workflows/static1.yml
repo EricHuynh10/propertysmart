@@ -44,7 +44,7 @@ jobs:
       # Step to setup .env file
       - name: Setup .env
         run: |
-          echo REACT_APP_BACKEND_URL=https://propertysmartbackend.azurewebsites.net/ >> frontend/.env
+          echo REACT_APP_BACKEND_URL=https://propertysmartbackend.azurewebsites.net >> frontend/.env
         shell: bash
 
       - name: Build

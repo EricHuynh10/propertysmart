@@ -19,7 +19,6 @@ const SearchBar = ({ setResult }) => {
   const fetchLocationOptions = async (inputValue) => {
     try {
       let url = `${process.env.REACT_APP_BACKEND_URL}/location-options`;
-      console.log('url: ', url);
       if (inputValue && inputValue !== '') {
         url += `?search=${inputValue}`;
       }

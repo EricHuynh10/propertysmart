@@ -70,3 +70,15 @@ CREATE TABLE IF NOT EXISTS location_options (
     "postcode" VARCHAR(4),
     PRIMARY KEY ("state", "suburb", "postcode")
 );
+
+-- add postgis extension
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+-- add geometry column to properties table
+ALTER TABLE properties ADD COLUMN location GEOGRAPHY(POINT, 4326);
+UPDATE properties
+SET location = ST_MakePoint(lng, lat)::geography;
+
+-- index location column
+CREATE INDEX location_idx ON properties USING GIST(location);
+

@@ -11,7 +11,6 @@ import { Box } from '@mui/material';
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
-  useAnalytics('G-PW7QTQNG2C');
 
   const contextValue = { 
     searchQuery,

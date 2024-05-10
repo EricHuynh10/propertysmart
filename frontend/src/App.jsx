@@ -6,7 +6,7 @@ import Nearby from './pages/Nearby';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import { Context } from './Context';
 import { Box } from '@mui/material';
-import { useAnalytics } from 'react-ga4';
+
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');

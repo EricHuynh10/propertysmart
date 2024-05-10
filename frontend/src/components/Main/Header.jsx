@@ -21,7 +21,7 @@ const Header = () => {
       }}
       onClick={() => {
         setSearchQuery(null);
-        navigate('/main')
+        navigate('/propertysmart/main')
       }}
     >
       <img 

@@ -53,7 +53,7 @@ const SearchBar = ({ setResult }) => {
     try {
       const selectedOptionString = option.value.suburb + '-' + option.value.state + '-' + option.value.postcode;
       const selectedOptionStringFormatted = selectedOptionString.replace(/\s+/g, '-').toLowerCase();
-      navigate(`/suburb/${selectedOptionStringFormatted}`);
+      navigate(`/propertysmart/suburb/${selectedOptionStringFormatted}`);
     } catch (error) {
       console.error('Error fetching data: ', error);
     }

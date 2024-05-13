@@ -16,7 +16,8 @@ const SearchResult = () => {
 
   // update searchQuery if differs from params
   useEffect(() => {
-    if (suburb && searchQuery !== suburb) {
+    const searchQueryFormatted = searchQuery.label.split(', ').join('-').replace(/ /g, '-');
+    if (suburb && searchQueryFormatted.toLowerCase() !== suburb.toLowerCase()) {
       const suburbArray = suburb.split('-');
       const postcode = suburbArray[suburbArray.length - 1];
       const state = suburbArray[suburbArray.length - 2];

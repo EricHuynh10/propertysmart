@@ -5,7 +5,6 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-import requests
 from sqlalchemy.orm import Session
 
 import crud, models, schemas

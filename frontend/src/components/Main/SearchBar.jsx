@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
-import { Box, Button, useTheme, useMediaQuery } from '@mui/material';
+import { Box, useTheme, useMediaQuery, Typography, Link } from '@mui/material';
 import SearchStyles from './SearchBar.module.css'
-import MyLocationIcon from '@mui/icons-material/MyLocation';
-import { grey } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../Context';
 
@@ -60,25 +58,39 @@ const SearchBar = ({ setResult }) => {
   };
 
   return (
-    <Box className={SearchStyles.searchBarContainer}
+    <Box 
+      sx={{
+        display: 'flex',
+        flexDirection: 'column', 
+        width: '100%', 
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
-      <Select
-        className={SearchStyles.searchBox}
-        name="suburb"
-        inputValue={inputValue}
-        onInputChange={handleInputChange}
-        onChange={handleChange}
-        options={locationOptions}
-        value={searchQuery}
-        placeholder="Enter a suburb, state, postcode"
-      />
-      {/* <Button variant="contained" 
-        sx={{ 
-          backgroundColor: grey[600],
+      <Box className={SearchStyles.searchBarContainer}>
+        <Select
+          className={SearchStyles.searchBox}
+          name="suburb"
+          inputValue={inputValue}
+          onInputChange={handleInputChange}
+          onChange={handleChange}
+          options={locationOptions}
+          value={searchQuery}
+          placeholder="Enter a suburb, state, postcode"
+        /> 
+      </Box>
+      <Box
+        onClick={() => navigate('/propertysmart/nearby')}
+        sx={{
+          width: '65%',
+          cursor: 'pointer',
+          minWidth: '300px',
         }}
       >
-        <MyLocationIcon />
-      </Button> */}
+        <Link>
+          or Use your current location
+        </Link>
+      </Box>
     </Box>
   );
 };

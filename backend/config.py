@@ -3,10 +3,10 @@ import os
 db_config = {
     'type': os.getenv('DB_TYPE', 'postgresql'),
     'host': os.getenv('DB_HOST', 'localhost'),
-    'port': os.getenv('DB_PORT', '5433'),
-    'user': os.getenv('DB_USER', 'admin'),
+    'port': os.getenv('DB_PORT', '5432'),
+    'user': os.getenv('DB_USER', 'postgres'),
     'password': os.getenv('DB_PASSWORD', 'admin'),
-    'schema': os.getenv('DB_SCHEMA', 'realestateDB'),
+    'schema': os.getenv('DB_SCHEMA', 'propertySmart'),
 }
 
 cors_allowed_origins = os.getenv(

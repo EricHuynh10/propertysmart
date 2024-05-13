@@ -1,7 +1,7 @@
 from sqlalchemy import (
     create_engine, Column, Integer, Date,
     String, FLOAT, Boolean, Sequence)
-
+from geoalchemy2 import Geography
 from database import Base
 
 class Properties(Base):
@@ -27,6 +27,7 @@ class Properties(Base):
     tagText = Column(String(255))
     tagClassName = Column(String(100))
     soldDate = Column(Date, primary_key=True)
+    location = Column(Geography(geometry_type='POINT', srid=4326))
 
 
 class Schools(Base):

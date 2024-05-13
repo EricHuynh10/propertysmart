@@ -9,11 +9,29 @@ import MedianPriceYield from "../components/SearchResult/MedianPriceYield";
 import Schools from "../components/SearchResult/Schools";
 
 const SearchResult = () => {
-  const { searchQuery, searchResult, setSearchResult } = useContext(Context);
+  const { searchQuery, setSearchQuery, searchResult, setSearchResult } = useContext(Context);
   const { suburb } = useParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // update searchQuery if differs from params
+  useEffect(() => {
+    if (suburb && searchQuery !== suburb) {
+      const suburbArray = suburb.split('-');
+      const postcode = suburbArray[suburbArray.length - 1];
+      const state = suburbArray[suburbArray.length - 2];
+      const suburbName = suburbArray.slice(0, -2).join(' ');
+      const suburbObject = {
+        label: suburbName + ', ' + state + ', ' + postcode,
+        value: {
+          suburb: suburbName,
+          state: state,
+          postcode: postcode
+        }
+      };
+      setSearchQuery(suburbObject);
+    }
+  }, [suburb]);
 
   const fetchSearchResult = async () => {
     try {

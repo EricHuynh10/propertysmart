@@ -1,7 +1,19 @@
-from typing import Optional, List
+from typing import Optional, List, Literal, Dict, Tuple
 from datetime import datetime, date
-
 from pydantic import BaseModel, validator, Field
+from shapely import wkb
+
+class Point(BaseModel):
+    type: Literal["Point"] = "Point"
+    coordinates: List[float]
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "type": "Point",
+                "coordinates": [0.0, 0.0]
+            }
+        }
 
 class PropertyBase(BaseModel):
     property_id: int
@@ -24,6 +36,17 @@ class PropertyBase(BaseModel):
     tagText: Optional[str] = None
     tagClassName: Optional[str] = None
     soldDate: Optional[date] = None
+    location: Optional[Point] = None
+
+    @validator('location', pre=True)
+    def parse_location(cls, v):
+        if v is not None:
+            point = wkb.loads(v.desc, hex=True)
+            return {
+                "type": "Point",
+                "coordinates": [point.x, point.y]
+            }
+        return v
 
 class PropertyCreate(PropertyBase):
     pass
@@ -98,3 +121,13 @@ class TotalRecords(BaseModel):
     totalRecords: int
     class Config:
         from_attributes=True
+
+class NearbyData(BaseModel):
+    medianPrice_L12M: Optional[float]
+    TranxLTM_L12M: int
+    medianPrice_L12M_prev: Optional[float]
+    TranxLTM_L12M_prev: Optional[float]
+
+class NearbyDict(BaseModel):
+    summary: Dict[Tuple[str, float], NearbyData]
+    transactions: List[Property]

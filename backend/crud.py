@@ -165,3 +165,13 @@ def get_total_records(db: Session,
     result = result.count()
     
     return {"totalRecords": result} 
+
+def get_nearby_properties(db: Session, lat: float, lng: float, dist: int):
+    result = db.query(models.Properties).filter(
+        func.ST_DWithin(
+            models.Properties.location,
+            func.ST_GeogFromText(f'POINT({lng} {lat})'),
+            dist
+        )
+    ).all()
+    return result

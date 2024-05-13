@@ -1,4 +1,4 @@
-from typing import List, Any, Union
+from typing import List, Any, Union, Dict, Tuple
 
 # from geopy.geocoders import Nominatim
 from fastapi import Depends, FastAPI, HTTPException
@@ -11,9 +11,8 @@ from sqlalchemy.orm import Session
 import crud, models, schemas
 from database import SessionLocal, engine
 from config import cors_allowed_origins_list
-# from log import logger
-# import tempfile
 from fastapi import Query
+from utils import nearby_summary
 
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
@@ -112,7 +111,23 @@ def get_property_id(id: int, db: Session = Depends(get_db)):
         return property
     except Exception as e:
         return {}
- 
+
+@app.get('/nearby', response_model=schemas.NearbyDict)
+def get_nearby_properties(lat: float = Query(..., description='latitude'), 
+                          lng: float = Query(..., description='longitude'), 
+                          dist: int = Query(500, description='distance'), 
+                          db: Session = Depends(get_db)):
+    try:
+        nearby_data = crud.get_nearby_properties(db, lat, lng, dist)
+        nearby_data_dict = [obj.__dict__ for obj in nearby_data]
+        nearby_summary_data, tranx_LTM = nearby_summary(nearby_data_dict)
+        response = { 
+            'summary': nearby_summary_data,
+            'transactions': tranx_LTM
+        }
+        return response
+    except Exception as e:
+        return {}
 
 
 

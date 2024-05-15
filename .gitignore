@@ -4,3 +4,5 @@ data/
 node_modules
 *env/
 adhoc-scripts/
+*.csv
+backup.sql

@@ -16,12 +16,12 @@ const SearchResult = () => {
 
   // update searchQuery if differs from params
   useEffect(() => {
-    const searchQueryFormatted = searchQuery.label.split(', ').join('-').replace(/ /g, '-');
+    const searchQueryFormatted = searchQuery ? searchQuery.label.split(', ').join('-').replace(/ /g, '-') : '';
     if (suburb && searchQueryFormatted.toLowerCase() !== suburb.toLowerCase()) {
       const suburbArray = suburb.split('-');
       const postcode = suburbArray[suburbArray.length - 1];
-      const state = suburbArray[suburbArray.length - 2];
-      const suburbName = suburbArray.slice(0, -2).join(' ');
+      const state = suburbArray[suburbArray.length - 2].toUpperCase();
+      const suburbName = suburbArray.slice(0, -2).join(' ').toUpperCase();
       const suburbObject = {
         label: suburbName + ', ' + state + ', ' + postcode,
         value: {

@@ -115,8 +115,8 @@ const Nearby = () => {
             sx={{ cursor: 'pointer' }}
             onClick={() => {
               if (dominatingSuburb) {
-                let suburb = dominatingSuburb.split(', ').join('-').replace(/ /g, '-');
-                navigate(`/propertysmart/suburb/${suburb}`);
+                let suburbString = dominatingSuburb.split(', ').join('-').replace(/ /g, '-');
+                navigate(`/propertysmart/suburb/${suburbString.toLowerCase()}`);
               }
             }}
           >

@@ -37,6 +37,7 @@ class PropertyBase(BaseModel):
     tagClassName: Optional[str] = None
     soldDate: Optional[date] = None
     location: Optional[Point] = None
+    url: Optional[str] = None
 
     @validator('location', pre=True)
     def parse_location(cls, v):

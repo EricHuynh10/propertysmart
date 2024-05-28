@@ -98,6 +98,7 @@ async def get_total_records(state: str = Query('all', description='state'),
                             db: Session = Depends(get_db)
                             ):
     try:
+        print('check1')
         total_records = crud.get_total_records(db, state, sortBy, propertyType, remoteness)
         return total_records
     except Exception as e:

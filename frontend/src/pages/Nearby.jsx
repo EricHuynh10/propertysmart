@@ -59,6 +59,7 @@ const Nearby = () => {
         .then((response) => {
           setNearbySummary(response.data.summary);
           setNearbyTransactions(response.data.transactions);
+          console.log(response.data.transactions);
         })
         .catch((error) => {
           console.error('Error fetching nearby places', error);

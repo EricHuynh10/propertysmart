@@ -17,6 +17,7 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const CollapsibleRow = ({ transaction }) => {
   const [open, setOpen] = useState(false);
+  const propertyUrl = `domain.com.au${transaction.url}`;
 
   return (
     <>
@@ -30,7 +31,11 @@ const CollapsibleRow = ({ transaction }) => {
             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
-        <TableCell>{`${transaction.street}, ${transaction.suburb}, ${transaction.postcode}`}</TableCell>
+        <TableCell>
+          <a href={`https://domain.com.au${transaction.url}`} target="_blank" rel="noopener noreferrer">
+            {`${transaction.street}, ${transaction.suburb}, ${transaction.postcode}`}
+          </a>
+        </TableCell>
         <TableCell align="right">
           {transaction.price > 0 ? transaction.price.toLocaleString() : "-"}
         </TableCell>
@@ -55,14 +60,20 @@ const CollapsibleRow = ({ transaction }) => {
 
 const FullTable = ({ transactions }) => (
   <TableBody>
-    {transactions && transactions.map((transaction, index) => (
-      <TableRow key={index}>
-        <TableCell>{`${transaction.street}, ${transaction.suburb}, ${transaction.postcode}`}</TableCell>
-        <TableCell align="right">{transaction.price > 0 ? transaction.price.toLocaleString() : "-"}</TableCell>
-        <TableCell align="right">{transaction.soldDate ? new Date(transaction.soldDate).toLocaleDateString('en-GB') : '-'}</TableCell>
-        <TableCell align="right">{transaction.landSize > 0 ? transaction.landSize.toLocaleString() : "-"} sqm</TableCell>
-      </TableRow>
-    ))}
+    {transactions && transactions.map((transaction, index) => {
+      return (
+        <TableRow key={index}>
+          <TableCell>
+            <a href={`https://domain.com.au${transaction.url}`} target="_blank" rel="noopener noreferrer">
+              {`${transaction.street}, ${transaction.suburb}, ${transaction.postcode}`}
+            </a>
+          </TableCell>
+          <TableCell align="right">{transaction.price > 0 ? transaction.price.toLocaleString() : "-"}</TableCell>
+          <TableCell align="right">{transaction.soldDate ? new Date(transaction.soldDate).toLocaleDateString('en-GB') : '-'}</TableCell>
+          <TableCell align="right">{transaction.landSize > 0 ? transaction.landSize.toLocaleString() : "-"} sqm</TableCell>
+        </TableRow>
+      )}
+    )}
   </TableBody>
 );
 

@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS properties (
     "tagText" VARCHAR(255),
     "tagClassName" VARCHAR(255),
     "soldDate" DATE,
+    "url" VARCHAR(255),
     PRIMARY KEY ("property_id", "soldDate")
 );
 
@@ -76,8 +77,7 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 
 -- add geometry column to properties table
 ALTER TABLE properties ADD COLUMN location GEOGRAPHY(POINT, 4326);
-UPDATE properties
-SET location = ST_MakePoint(lng, lat)::geography;
+UPDATE properties SET ST_MakePoint(CAST(lng AS FLOAT), CAST(lat AS FLOAT))::geography;
 
 -- index location column
 CREATE INDEX location_idx ON properties USING GIST(location);

@@ -6,7 +6,6 @@ from database import Base
 
 class Properties(Base):
     __tablename__ = 'properties'
-    tranx_id = Column(Integer, Sequence('properties_tranx_id_seq')) # not from domain.com
     property_id = Column(Integer, primary_key=True)
     beds = Column(Integer)
     baths = Column(Integer)
@@ -14,21 +13,22 @@ class Properties(Base):
     propertyType = Column(String(255))
     propertyTypeFormatted = Column(String(255))
     isRural = Column(Boolean)
-    landSize = Column(FLOAT)
-    landUnit = Column(String(10))
+    landSize = Column(Integer)
+    landUnit = Column(String(255))
     isRetirement = Column(Boolean)
     street = Column(String(255))
-    suburb = Column(String(100))
-    state = Column(String(50))
-    postcode = Column(String(10))
-    lat = Column(FLOAT)
-    lng = Column(FLOAT)
+    suburb = Column(String(255))
+    state = Column(String(255))
+    postcode = Column(String(4))
+    lat = Column(String(255))
+    lng = Column(String(255))
     price = Column(Integer)
     tagText = Column(String(255))
-    tagClassName = Column(String(100))
+    tagClassName = Column(String(255))
     soldDate = Column(Date, primary_key=True)
+    url = Column(String(255))
     location = Column(Geography(geometry_type='POINT', srid=4326))
-
+    
 
 class Schools(Base):
     __tablename__ = 'schools'
@@ -44,7 +44,6 @@ class Schools(Base):
 
 class Suburbs(Base):
     __tablename__ = 'suburbs'
-    id = Column(Integer, Sequence('suburbs_id_seq'))
     suburb = Column(String(100), primary_key=True)
     state = Column(String(50), primary_key=True)
     postcode = Column(String(10), primary_key=True)

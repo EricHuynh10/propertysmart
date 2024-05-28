@@ -17,6 +17,9 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 
 const CollapsibleRow = ({ type, data }) => {
   const [open, setOpen] = useState(false);
+  let [propertyType, beds] = type.split(',');
+  beds = beds.replace('.0', '');
+  type = `${propertyType}, ${beds} br`;
 
   return (
     <>
@@ -54,15 +57,20 @@ const CollapsibleRow = ({ type, data }) => {
 
 const FullTable = ({ nearbySummary }) => (
   <TableBody>
-    {nearbySummary && Object.entries(nearbySummary).map(([key, value], index) => (
-      <TableRow key={index}>
-        <TableCell>{key}</TableCell>
-        <TableCell align="right">{value.medianPrice_L12M > 0 ? value.medianPrice_L12M.toLocaleString() : "-"}</TableCell>
-        <TableCell align="right">{value.TranxLTM_L12M > 0 ? value.TranxLTM_L12M.toLocaleString() : "-"}</TableCell>
-        <TableCell align="right">{value.medianPrice_L12M_prev > 0 ? value.medianPrice_L12M_prev.toLocaleString() : "-"}</TableCell>
-        <TableCell align="right">{value.TranxLTM_L12M_prev > 0 ? value.TranxLTM_L12M_prev.toLocaleString() : "-"}</TableCell>
-      </TableRow>
-    ))}
+    {nearbySummary && Object.entries(nearbySummary).map(([key, value], index) => {
+      let [propertyType, beds] = key.split(',');
+      beds = beds.replace('.0', '');
+      key = `${propertyType}, ${beds} br`;
+      return (  
+        <TableRow key={index}>
+          <TableCell>{key}</TableCell>
+          <TableCell align="right">{value.medianPrice_L12M > 0 ? value.medianPrice_L12M.toLocaleString() : "-"}</TableCell>
+          <TableCell align="right">{value.TranxLTM_L12M > 0 ? value.TranxLTM_L12M.toLocaleString() : "-"}</TableCell>
+          <TableCell align="right">{value.medianPrice_L12M_prev > 0 ? value.medianPrice_L12M_prev.toLocaleString() : "-"}</TableCell>
+          <TableCell align="right">{value.TranxLTM_L12M_prev > 0 ? value.TranxLTM_L12M_prev.toLocaleString() : "-"}</TableCell>
+        </TableRow>
+      )}
+    )}
   </TableBody>
 );
 

@@ -6,3 +6,4 @@ node_modules
 adhoc-scripts/
 *.csv
 backup.sql
+privateNotes.txt

@@ -40,7 +40,7 @@ const CollapsibleRow = ({ transaction }) => {
           {transaction.price > 0 ? transaction.price.toLocaleString() : "-"}
         </TableCell>
         <TableCell align="right">
-        {transaction.soldDate ? new Date(transaction.soldDate).toLocaleDateString('en-GB') : '-'}
+          {transaction.soldDate ? new Date(transaction.soldDate).toLocaleDateString('en-GB') : '-'}
         </TableCell>
       </TableRow>
       <TableRow>

@@ -18,7 +18,6 @@ const TopSuburbsByYield = () => {
   const fetchTop10 = async () => {
     try {
       let url = `${process.env.REACT_APP_BACKEND_URL}/top10?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}&page=${currentPage}`;
-      console.log(url);
       const response = await axios.get(url);
       setTop10(response.data);
     } catch (error) {
@@ -29,7 +28,6 @@ const TopSuburbsByYield = () => {
   const fetchTotalRecords = async () => {
     try {
       let url = `${process.env.REACT_APP_BACKEND_URL}/total-records?state=${stateValue}&sortBy=${yieldValue}&propertyType=${propertyTypeValue}&remoteness=${remoteness}`;
-      console.log(url);
       const response = await axios.get(url);
       setTotalRecords(response.data.totalRecords);
     } catch (error) {
